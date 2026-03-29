@@ -8,7 +8,7 @@ CREATE TABLE role (
     name VARCHAR(50) UNIQUE NOT NULL -- admin, journalist, editeur, superjournalist
 );
 
-CREATE TABLE user (
+CREATE TABLE "user" (
     id SERIAL PRIMARY KEY,
     id_role INT REFERENCES role(id),
     name VARCHAR(100) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE article_tags (
 CREATE TABLE article_authors (
     id SERIAL PRIMARY KEY,
     id_article INT REFERENCES article(id),
-    id_user INT REFERENCES user(id)
+    id_user INT REFERENCES "user"(id)
 );
 
 CREATE TABLE article_images (
