@@ -1,0 +1,28 @@
+# Dependencies
+apps/backoffice/node_modules
+apps/frontoffice/node_modules
+apps/backend/vendor
+
+# Environment variables (sensibles)
+.env
+.env.local
+.env.*.local
+
+# Backend
+apps/backend/app/config/config.php
+apps/backend/app/log/
+
+# Frontend builds
+apps/backoffice/dist/
+apps/frontoffice/dist/
+
+# OS/IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker volumes (local)
+postgres_data/
+mongo_data/
