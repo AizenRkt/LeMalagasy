@@ -31,9 +31,9 @@ class BaseSQL {
 
     public function insert(array $data): bool {
         try {
-            $columns = "`" . implode("`, `", array_keys($data)) . "`";
+            $columns = "\"" . implode("\", \"", array_keys($data)) . "\"";
             $placeholders = ":" . implode(", :", array_keys($data));
-            $sql = "INSERT INTO `{$this->table}` ($columns) VALUES ($placeholders)";
+            $sql = "INSERT INTO \"{$this->table}\" ($columns) VALUES ($placeholders)";
             $stmt = $this->db->prepare($sql);
             return $stmt->execute($data);
         } catch (PDOException $e) {
@@ -44,8 +44,8 @@ class BaseSQL {
 
     public function update($id, array $data): bool {
         try {
-            $setPart = implode(", ", array_map(fn($key) => "`$key` = :$key", array_keys($data)));
-            $sql = "UPDATE `{$this->table}` SET $setPart WHERE `{$this->primaryKey}` = :id";
+            $setPart = implode(", ", array_map(fn($key) => "\"$key\" = :$key", array_keys($data)));
+            $sql = "UPDATE \"{$this->table}\" SET $setPart WHERE \"{$this->primaryKey}\" = :id";
             $stmt = $this->db->prepare($sql);
             $data['id'] = $id;
             return $stmt->execute($data);
@@ -57,7 +57,7 @@ class BaseSQL {
 
     public function delete($id): bool {
         try {
-            $sql = "DELETE FROM `{$this->table}` WHERE `{$this->primaryKey}` = :id";
+            $sql = "DELETE FROM \"{$this->table}\" WHERE \"{$this->primaryKey}\" = :id";
             $stmt = $this->db->prepare($sql);
             return $stmt->execute(['id' => $id]);
         } catch (PDOException $e) {
@@ -67,7 +67,7 @@ class BaseSQL {
 
     public function getAll(): array {
         try {
-            $sql = "SELECT * FROM `{$this->table}`";
+            $sql = "SELECT * FROM \"{$this->table}\"";
             $stmt = $this->db->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -77,7 +77,7 @@ class BaseSQL {
 
     public function getById($id): ?array {
         try {
-            $sql = "SELECT * FROM `{$this->table}` WHERE `{$this->primaryKey}` = :id";
+            $sql = "SELECT * FROM \"{$this->table}\" WHERE \"{$this->primaryKey}\" = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(['id' => $id]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
@@ -88,8 +88,8 @@ class BaseSQL {
 
     public function getWhere(array $conditions): array {
         try {
-            $where = implode(" AND ", array_map(fn($key) => "`$key` = :$key", array_keys($conditions)));
-            $sql = "SELECT * FROM `{$this->table}` WHERE $where";
+            $where = implode(" AND ", array_map(fn($key) => "\"$key\" = :$key", array_keys($conditions)));
+            $sql = "SELECT * FROM \"{$this->table}\" WHERE $where";
             $stmt = $this->db->prepare($sql);
             $stmt->execute($conditions);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -100,8 +100,11 @@ class BaseSQL {
 
     public function getTableCol() {
         try {
-            $sql = "SHOW columns FROM `{$this->table}`";
-            $stmt = $this->db->query($sql);
+            $sql = "SELECT column_name, data_type, is_nullable 
+                    FROM information_schema.columns 
+                    WHERE table_name = :table";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(['table' => $this->table]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             return [];
