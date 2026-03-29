@@ -1,10 +1,5 @@
-import React from 'react'
+import AppRouter from './router/AppRouter'
 
-export default function App(){
-  return (
-    <div style={{padding:20}}>
-      <h1>Frontoffice</h1>
-      <p>Bienvenue dans l'application frontoffice Patrick.</p>
-    </div>
-  )
+export default function App() {
+  return <AppRouter />
 }
