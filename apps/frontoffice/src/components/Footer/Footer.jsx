@@ -1,4 +1,4 @@
-import '../../assets/styles/footer/footer.css'
+import '../../assets/styles/Footer/Footer.css'
 
 export default function Footer() {
   return (
@@ -37,6 +37,18 @@ export default function Footer() {
             </li>
             <li>
               <a href="#">Mentions legales</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3 className="news-footer-title">Créateur</h3>
+          <ul className="news-footer-list">
+            <li>
+              <a href="#">ETU003289 Sanda</a>
+            </li>
+            <li>
+              <a href="#">ETU003658 Patrick</a>
             </li>
           </ul>
         </section>

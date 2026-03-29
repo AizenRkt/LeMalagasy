@@ -1,4 +1,4 @@
-import '../../assets/styles/navbar/navbar.css'
+import '../../assets/styles/Navbar/Navbar.css'
 
 export default function Navbar() {
   const menuItems = ['International', 'Politique', 'Economie', 'Culture', 'Sports', 'Societe']
@@ -24,7 +24,7 @@ export default function Navbar() {
 
       <nav className="news-navbar-menu" aria-label="Navigation principale">
         <a href="#" className="news-menu-link is-active">
-          Accueil
+          Actu
         </a>
         {menuItems.map((item) => (
           <a key={item} href="#" className="news-menu-link">
