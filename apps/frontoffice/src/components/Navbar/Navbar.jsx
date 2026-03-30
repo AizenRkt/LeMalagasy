@@ -9,6 +9,7 @@ export default function Navbar() {
     { label: 'Culture', href: '#home' },
     { label: 'Sports', href: '#home' },
     { label: 'Societe', href: '#home' },
+    { label: 'Categorie', href: '#category' },
     { label: 'Article', href: '#article' }
   ]
 
@@ -27,7 +28,7 @@ export default function Navbar() {
           Le Malagasy
         </a>
         <button className="news-navbar-subscribe" type="button">
-          S'abonner
+          Soutenir
         </button>
       </div>
 

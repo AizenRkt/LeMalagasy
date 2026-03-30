@@ -2,10 +2,19 @@ import { useEffect, useState } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import Home from '../pages/Home'
 import Article from '../pages/Article'
+import Category from '../pages/Category'
 
 function getHashRoute() {
   const hash = window.location.hash || '#home'
-  return hash === '#article' ? '#article' : '#home'
+  if (hash === '#article') {
+    return '#article'
+  }
+
+  if (hash === '#category') {
+    return '#category'
+  }
+
+  return '#home'
 }
 
 export default function AppRouter() {
@@ -20,7 +29,9 @@ export default function AppRouter() {
 
   return (
     <MainLayout>
-      {route === '#article' ? <Article /> : <Home />}
+      {route === '#article' ? <Article /> : null}
+      {route === '#category' ? <Category /> : null}
+      {route === '#home' ? <Home /> : null}
     </MainLayout>
   )
 }
