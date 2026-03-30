@@ -8,7 +8,7 @@
 .news-navbar-meta {
   width: min(1100px, 92vw);
   margin: 0 auto;
-  padding: 8px 0;
+  padding: 6px 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -21,7 +21,7 @@
 .news-navbar-brand-row {
   width: min(1100px, 92vw);
   margin: 0 auto;
-  padding: 16px 0 14px;
+  padding: 14px 0 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +57,7 @@
 .news-navbar-menu {
   width: min(1100px, 92vw);
   margin: 0 auto;
-  padding: 12px 0;
+  padding: 10px 0;
   border-top: 1px solid var(--line);
   display: flex;
   flex-wrap: wrap;

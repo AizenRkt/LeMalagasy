@@ -1,4 +1,5 @@
 import '../../assets/styles/Navbar/Navbar.css'
+import EnContinu from './EnContinu'
 
 export default function Navbar() {
   const menuItems = ['International', 'Politique', 'Economie', 'Culture', 'Sports', 'Societe']
@@ -32,6 +33,9 @@ export default function Navbar() {
           </a>
         ))}
       </nav>
+
+      <EnContinu />
+
     </header>
   )
 }
