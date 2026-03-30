@@ -1,16 +1,17 @@
 import '../../assets/styles/Navbar/Navbar.css'
+import { Link, NavLink } from 'react-router-dom'
 import EnContinu from './EnContinu'
 
 export default function Navbar() {
   const menuItems = [
-    { label: 'International', href: '#home' },
-    { label: 'Politique', href: '#home' },
-    { label: 'Economie', href: '#home' },
-    { label: 'Culture', href: '#home' },
-    { label: 'Sports', href: '#home' },
-    { label: 'Societe', href: '#home' },
-    { label: 'Categorie', href: '#category' },
-    { label: 'Article', href: '#article' }
+    { label: 'International', to: '/' },
+    { label: 'Politique', to: '/' },
+    { label: 'Economie', to: '/categorie/economie' },
+    { label: 'Culture', to: '/' },
+    { label: 'Sports', to: '/' },
+    { label: 'Societe', to: '/' },
+    { label: 'Categorie', to: '/categorie/economie' },
+    { label: 'Article', to: '/article/comment-les-communes-cotieres-reinventent-leur-avenir-economique' }
   ]
 
   return (
@@ -24,22 +25,26 @@ export default function Navbar() {
       </div>
 
       <div className="news-navbar-brand-row">
-        <a href="#home" className="news-navbar-brand" aria-label="Le Malagasy accueil">
+        <Link to="/" className="news-navbar-brand" aria-label="Le Malagasy accueil">
           Le Malagasy
-        </a>
+        </Link>
         <button className="news-navbar-subscribe" type="button">
           Soutenir
         </button>
       </div>
 
       <nav className="news-navbar-menu" aria-label="Navigation principale">
-        <a href="#home" className="news-menu-link is-active">
+        <NavLink to="/" end className={({ isActive }) => `news-menu-link${isActive ? ' is-active' : ''}`}>
           Actu
-        </a>
+        </NavLink>
         {menuItems.map((item) => (
-          <a key={item.label} href={item.href} className="news-menu-link">
+          <NavLink
+            key={item.label}
+            to={item.to}
+            className={({ isActive }) => `news-menu-link${isActive ? ' is-active' : ''}`}
+          >
             {item.label}
-          </a>
+          </NavLink>
         ))}
       </nav>
 

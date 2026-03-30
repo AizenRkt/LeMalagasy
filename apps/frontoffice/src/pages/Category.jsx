@@ -1,10 +1,22 @@
 import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import formatDate from '../utils/formatDate'
 import './Category.css'
 
 const categoryData = {
+  slug: 'economie',
   name: 'Economie',
   tags: ['Croissance', 'Investissement', 'PME', 'Emploi local', 'Startup', 'Innovation', 'Fintech', 'Commerce', 'Secteur public', 'Développement durable']
+}
+
+function toSlug(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
 }
 
 const featuredArticles = [
@@ -71,16 +83,22 @@ const categoryArticles = [
 ]
 
 export default function Category() {
+  const { slug } = useParams()
   const [showAllTags, setShowAllTags] = useState(false)
   const initialTagsCount = 4
   const visibleTags = showAllTags ? categoryData.tags : categoryData.tags.slice(0, initialTagsCount)
   const hasMoreTags = categoryData.tags.length > initialTagsCount
+  const categoryName = slug
+    ? slug
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, (char) => char.toUpperCase())
+    : categoryData.name
 
   return (
     <section className="news-category-page" aria-label="Page categorie">
       <header className="news-category-head">
         <p className="news-category-kicker">Categorie</p>
-        <h1 className="news-category-title">{categoryData.name}</h1>
+        <h1 className="news-category-title">{categoryName}</h1>
 
         <div className="news-category-tags-container">
           <ul className="news-category-tags" aria-label="Tags de categorie">
@@ -106,13 +124,17 @@ export default function Category() {
         <h2>Articles phares</h2>
         <div className="news-category-featured-grid">
           {featuredArticles.map((article) => (
-            <a key={article.id} href="#article" className="news-category-featured-card">
+            <Link
+              key={article.id}
+              to={`/article/${toSlug(article.title)}`}
+              className="news-category-featured-card"
+            >
               <img src={article.image} alt={article.title} />
               <div className="news-category-featured-content">
                 <p className="news-category-featured-meta">{formatDate(article.publishedAt)}</p>
                 <h3>{article.title}</h3>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -122,13 +144,13 @@ export default function Category() {
         <ul className="news-category-list-items">
           {categoryArticles.map((article) => (
             <li key={article.id} className="news-category-list-item">
-              <a href="#article">
+              <Link to={`/article/${toSlug(article.title)}`}>
                 <h4>{article.title}</h4>
                 <p className="news-category-list-meta">
                   Par {article.author} • {formatDate(article.publishedAt)} • {article.readingTime} de lecture
                 </p>
                 <p className="news-category-list-excerpt">{article.excerpt}</p>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
