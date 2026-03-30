@@ -2,7 +2,15 @@ import '../../assets/styles/Navbar/Navbar.css'
 import EnContinu from './EnContinu'
 
 export default function Navbar() {
-  const menuItems = ['International', 'Politique', 'Economie', 'Culture', 'Sports', 'Societe']
+  const menuItems = [
+    { label: 'International', href: '#home' },
+    { label: 'Politique', href: '#home' },
+    { label: 'Economie', href: '#home' },
+    { label: 'Culture', href: '#home' },
+    { label: 'Sports', href: '#home' },
+    { label: 'Societe', href: '#home' },
+    { label: 'Article', href: '#article' }
+  ]
 
   return (
     <header className="news-navbar-wrapper">
@@ -15,7 +23,7 @@ export default function Navbar() {
       </div>
 
       <div className="news-navbar-brand-row">
-        <a href="#" className="news-navbar-brand" aria-label="Le Malagasy accueil">
+        <a href="#home" className="news-navbar-brand" aria-label="Le Malagasy accueil">
           Le Malagasy
         </a>
         <button className="news-navbar-subscribe" type="button">
@@ -24,12 +32,12 @@ export default function Navbar() {
       </div>
 
       <nav className="news-navbar-menu" aria-label="Navigation principale">
-        <a href="#" className="news-menu-link is-active">
+        <a href="#home" className="news-menu-link is-active">
           Actu
         </a>
         {menuItems.map((item) => (
-          <a key={item} href="#" className="news-menu-link">
-            {item}
+          <a key={item.label} href={item.href} className="news-menu-link">
+            {item.label}
           </a>
         ))}
       </nav>
